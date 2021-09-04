@@ -65,4 +65,12 @@ struct RevoltUserRelation {
     char* status;
 };
 
+/*
+ * Holds information about mutual servers and friends.
+*/
+struct RevoltMutuals {
+    char** servers;
+    char** friends;
+};
+
 #endif
