@@ -29,10 +29,10 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
 int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s", target);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
-    char* useridHeader = mprintf("x-user-id: %s", client->userid);
+    char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
     struct SizedBuffer response = getRequest(getURL, 2, sessionHeader,
-                                                        useridHeader);
+                                                        userIdHeader);
 
     buffer->avatar = calloc(1, sizeof(struct RevoltImageInfo));
     buffer->avatar->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
@@ -74,9 +74,8 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
 
     free(getURL);
     free(sessionHeader);
-    free(useridHeader);
+    free(userIdHeader);
     free(response.string);
-
 
     return 0;
 }
@@ -84,6 +83,11 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
 void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
     ntl_free((ntl_t) buffer->relations, free);
 
+    free(buffer->avatar->id);
+    free(buffer->avatar->tag);
+    free(buffer->avatar->filename);
+    free(buffer->avatar->contentType);
+    free(buffer->avatar->metadata->type);
     free(buffer->avatar->metadata);
     free(buffer->avatar);
 }
