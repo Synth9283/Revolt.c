@@ -49,7 +49,7 @@ struct RevoltImageInfo {
 */
 struct RevoltUserInfo {
     char* id;
-    struct RevoltAvatarInfo* avatar;
+    struct RevoltImageInfo* avatar;
     int badges;
     int online;
     struct RevoltUserRelation** relations;
@@ -64,6 +64,5 @@ struct RevoltUserRelation {
     char* id;
     char* status;
 };
-
 
 #endif

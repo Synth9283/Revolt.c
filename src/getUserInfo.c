@@ -34,8 +34,8 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
     struct SizedBuffer response = getRequest(getURL, 2, sessionHeader,
                                                         useridHeader);
 
-    buffer->avatar = calloc(1, sizeof(struct RevoltAvatarInfo));
-    buffer->avatar->metadata = calloc(1, sizeof(struct RevoltAvatarMetadata));
+    buffer->avatar = calloc(1, sizeof(struct RevoltImageInfo));
+    buffer->avatar->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
     NTL_T(struct RevoltUserRelation) relations = NULL;
 
     json_extract(response.string, response.length,
