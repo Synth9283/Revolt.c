@@ -68,7 +68,7 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
                  &relations,
                  &buffer->relationship,
                  &buffer->username
-                ); 
+                );
 
     buffer->relations = relations;
 
@@ -77,5 +77,14 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
     free(useridHeader);
     free(response.string);
 
+
     return 0;
 }
+
+void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
+    ntl_free((ntl_t) buffer->relations, free);
+
+    free(buffer->avatar->metadata);
+    free(buffer->avatar);
+}
+
