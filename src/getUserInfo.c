@@ -79,4 +79,3 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
 
     return 0;
 }
-
