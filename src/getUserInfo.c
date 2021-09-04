@@ -87,4 +87,3 @@ void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
     free(buffer->avatar->metadata);
     free(buffer->avatar);
 }
-

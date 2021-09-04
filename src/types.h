@@ -15,22 +15,23 @@ struct RevoltClient {
 };
 
 /*
- * Holds information about the metadata of a user's avatar.
+ * Holds information about the metadata of a user's avatar or
+ * background.
 */
-struct RevoltAvatarMetadata {
+struct RevoltImageMetadata {
     int height;
     char* type;
     int width;
 };
 
 /*
- * Holds information about a user's avatar.
+ * Holds information about a user's avatar
 */
 struct RevoltAvatarInfo {
     char* id;
     char* contentType;
     char* filename;
-    struct RevoltAvatarMetadata* metadata;
+    struct RevoltImageMetadata* metadata;
     int size;
     char* tag;
 };
