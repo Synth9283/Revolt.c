@@ -25,9 +25,17 @@ struct RevoltImageMetadata {
 };
 
 /*
- * Holds information about a user's avatar
+ * Holds information about the profile of a user.
 */
-struct RevoltAvatarInfo {
+struct RevoltUserProfile {
+    struct RevoltImageInfo* background;
+    char* content;
+};
+
+/*
+ * Holds information about a user's avatar or background.
+*/
+struct RevoltImageInfo {
     char* id;
     char* contentType;
     char* filename;
