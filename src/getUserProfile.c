@@ -10,9 +10,9 @@
 int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct RevoltUserProfile* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s/profile", target);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
-    char* useridHeader = mprintf("x-user-id: %s", client->userid);
+    char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
-    struct SizedBuffer response = getRequest(getURL, 2, sessionHeader, useridHeader);
+    struct SizedBuffer response = getRequest(getURL, 2, sessionHeader, userIdHeader);
 
     buffer->background = calloc(1, sizeof(struct RevoltImageInfo));
     buffer->background->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
@@ -36,6 +36,11 @@ int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct
                  &buffer->background->size,
                  &buffer->background->tag,
                  &buffer->content);
+
+    free(getURL);
+    free(sessionHeader);
+    free(userIdHeader);
+    free(response.string);
 
     return 0;
 }
