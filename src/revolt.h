@@ -1,17 +1,27 @@
 #ifndef REVOLT_API_H
 #define REVOLT_API_H
 
+/*
+ * A Revolt client that holds the token and userid of the user
+ * that is signed in.
+*/
 struct RevoltClient {
     char* token;
     char* userid;
 };
 
+/*
+ * Holds information about the metadata of a user's avatar.
+*/
 struct RevoltAvatarMetadata {
     int height;
     char* type;
     int width;
 };
 
+/*
+ * Holds information about a user's avatar.
+*/
 struct RevoltAvatarInfo {
     char* id;
     char* contentType;
@@ -21,6 +31,9 @@ struct RevoltAvatarInfo {
     char* tag;
 };
 
+/*
+ * Holds information about a user.
+*/
 struct RevoltUserInfo {
     char* id;
     struct RevoltAvatarInfo* avatar;
@@ -31,6 +44,9 @@ struct RevoltUserInfo {
     char* username;
 };
 
+/*
+ * Holds information about a user's relation to another user.
+*/
 struct RevoltUserRelation {
     char* id;
     char* status;
