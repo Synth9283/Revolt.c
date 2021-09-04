@@ -39,3 +39,15 @@ int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct
 
     return 0;
 }
+
+void revoltFreeUserProfile(struct RevoltUserProfile* buffer) {
+    free(buffer->background->id);
+    free(buffer->background->contentType);
+    free(buffer->background->filename);
+    free(buffer->background->metadata->type);
+    free(buffer->background->tag);
+    free(buffer->content);
+
+    free(buffer->background->metadata);
+    free(buffer->background);
+}
