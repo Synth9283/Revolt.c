@@ -2,7 +2,7 @@
  * Source file for revoltSendMessage
 */
 
-#include "revolt.h"
+#include "deps/revolt.h"
 #include "deps/json-utils/utils.h"
 
 int revoltSendMessage(struct RevoltClient* client, const char* message, const char* target) {

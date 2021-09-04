@@ -4,7 +4,7 @@
 */
 
 #include <stdio.h>
-#include "revolt.h"
+#include "deps/revolt.h"
 #include "deps/json-utils/utils.h"
 #include "deps/cee-utils/json-actor.h"
 
