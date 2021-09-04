@@ -7,6 +7,10 @@
 *.obj
 *.elf
 
+# Dependencies
+src/deps/ulid/
+src/deps/cee-utils/
+
 # Linker output
 *.ilk
 *.map
