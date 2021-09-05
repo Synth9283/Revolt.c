@@ -35,7 +35,8 @@ int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct
                  &buffer->background->metadata->width,
                  &buffer->background->size,
                  &buffer->background->tag,
-                 &buffer->content);
+                 &buffer->content
+                );
 
     free(getURL);
     free(sessionHeader);
