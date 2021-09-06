@@ -12,7 +12,7 @@ int revoltFetchMutualFriends(struct RevoltClient* client, const char* users, con
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
-    struct SizedBuffer response = getRequest(getURL, 2, sessionHeader, userIdHeader);
+    struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, userIdHeader);
 
     json_extract(response.string, response.length,
                 "(users):?s",

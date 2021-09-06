@@ -13,7 +13,7 @@ int revoltFetchDefaultUserAvatar(struct RevoltClient* client, const char* target
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
-    struct SizedBuffer response = getRequest(getURL, 2, sessionHeader, userIdHeader);
+    struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, userIdHeader);
 
     fwrite(response.string, sizeof(char), response.length, buffer);
 

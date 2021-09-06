@@ -11,7 +11,7 @@ int revoltFetchMessage(struct RevoltClient* client, struct RevoltFetchMessagePar
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* useridHeader = mprintf("x-user-id: %s", client->userid);
 
-    struct SizedBuffer response = getRequest(getURL, 2, sessionHeader, useridHeader);
+    struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, useridHeader);
 
     free(response.string);
     free(getURL);

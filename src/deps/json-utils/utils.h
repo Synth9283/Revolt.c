@@ -95,9 +95,10 @@ struct SizedBuffer postRequest(const char* url, const char* json, const int coun
  * should have its string be freed.
  *
  * @param url: the url to send the request to
+ * @param url: the json to send with the request
  * @param count: the number of header components
  * @return: a sized buffer that holds the JSON returned from the request
 */
-struct SizedBuffer getRequest(const char* url, const int count, ...);
+struct SizedBuffer getRequest(const char* url, const char* json, const int count, ...);
 
 #endif

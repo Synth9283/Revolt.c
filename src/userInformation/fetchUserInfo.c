@@ -31,7 +31,7 @@ int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct 
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
-    struct SizedBuffer response = getRequest(getURL, 2, sessionHeader,
+    struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader,
                                                         userIdHeader);
 
     buffer->avatar = calloc(1, sizeof(struct RevoltImageInfo));

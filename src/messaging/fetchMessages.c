@@ -6,6 +6,7 @@
 #include "../deps/revolt.h"
 #include "../deps/ulid/ulid.h"
 #include "../deps/json-utils/utils.h"
+#include "../deps/cee-utils/json-actor.h"
 
 int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* message, const char* target, struct RevoltFetchMessagesParams* params) {
     char ulidBuffer[32] = {0};

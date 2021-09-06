@@ -149,7 +149,7 @@ struct SizedBuffer postRequest(const char* url, const char* json, const int coun
     return buffer;
 }
 
-struct SizedBuffer getRequest(const char* url, const int count, ...) {
+struct SizedBuffer getRequest(const char* url, const char* json, const int count, ...) {
     int index = 0;
     va_list headers;
     CURL* curl = curl_easy_init();
@@ -163,6 +163,7 @@ struct SizedBuffer getRequest(const char* url, const int count, ...) {
         chunk = curl_slist_append(chunk, va_arg(headers, char*));
     }
 
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
     curl_easy_setopt(curl, CURLOPT_URL, url);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeResponse);
