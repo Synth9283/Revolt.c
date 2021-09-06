@@ -68,13 +68,21 @@ struct RevoltChannelMessages {
 /*
  * Used for specifiying settings for fetching messages from Revolt
 */
-struct RevoltFetchMessageParams {
+struct RevoltFetchMessagesParams {
     int   limit;
     char* before;
     char* after;
     char* sort;
     char* nearby;
     int includeUsers;
+};
+
+/*
+ * Used for specifiying settings for fetching a message from Revolt
+*/
+struct RevoltFetchMessageParams {
+    char* channel;
+    char* message;
 };
 
 /*
