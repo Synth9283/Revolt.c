@@ -2,6 +2,7 @@
  * Source file for revoltGetUserInfo
 */
 
+#include "deps/cee-utils/ntl.h"
 #include "revolt.h"
 #include "deps/json-utils/utils.h"
 #include "deps/cee-utils/json-actor.h"
@@ -83,6 +84,11 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
 void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
     ntl_free((ntl_t) buffer->relations, free);
 
+    free(buffer->id);
+    free(buffer->relationship);
+    ntl_free((ntl_t) buffer->relations, free);
+    free(buffer->username);
+
     free(buffer->avatar->id);
     free(buffer->avatar->tag);
     free(buffer->avatar->filename);
@@ -90,4 +96,5 @@ void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
     free(buffer->avatar->metadata->type);
     free(buffer->avatar->metadata);
     free(buffer->avatar);
+
 }

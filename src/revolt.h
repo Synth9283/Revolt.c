@@ -49,6 +49,17 @@ int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct
 int revoltGetDefaultUserAvatar(struct RevoltClient* client, const char* target, FILE* buffer);
 
 /*
+ * Retrieves lists of mutual servers and friends that the authenticated
+ * user has with another user of a given id, and writes it to a buffer.
+ *
+ * @param client: the Revolt client
+ * @param target: the id of the user to get mutuals with
+ * @param buffer: the buffer to write mutual friends and servers to
+ * @return: HTTP status code
+*/
+int revoltGetUserMutalFriends(struct RevoltClient* client, const char* target, struct RevoltMutuals* buffer);
+
+/*
  * Frees the structure containing user information.
  *
  * @param buffer: the buffer to free
