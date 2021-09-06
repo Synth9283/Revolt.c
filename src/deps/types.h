@@ -43,29 +43,59 @@ struct RevoltChannelMember {
     char** roles;
 };
 
+struct RevoltMessageContent {
+    char* type;
+    char* content;
+};
+
+struct RevoltMessageEdited {
+    char* date;
+};
+
+/*
+ * Used for storing the message object from Revolt
+*/
+
 struct RevoltMessage {
     char* id;
     int nonce;
     char* channel;
     char* author;
-    struct {
-        char* type;
-        char* content;
-    } content;
+    struct RevoltMessageContent* content;
     struct RevoltAttachment** attachments;
-    struct {
-        char* date;
-    } edited;
+    struct RevoltMessageEdited* edited;
     struct RevoltEmbed** embeds;
     char** mentions;
     char** replies;
     
 };
 
+/*
+ * Used for fetching channel messages from Revolt
+*/
+
 struct RevoltChannelMessages {
     struct RevoltMessage *message;
     struct RevoltUserInfo** users;
     struct RevoltChannelMember** members;
+};
+
+/*
+ * Used for fetching message changes from Revolt
+*/
+
+struct RevoltMessageChange {
+    char* id;
+    char* nonce;
+    char* channel;
+    char* author;
+    struct RevoltMessageContent* content;
+    struct RevoltAttachment** attachments;
+    struct RevoltMessageEdited* edited;
+    struct RevoltEmbed** embeds;
+    char** mentions;
+    char** replies;
+    char** deleted;
 };
 
 /*
