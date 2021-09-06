@@ -91,6 +91,11 @@ int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct 
 void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
     ntl_free((ntl_t) buffer->relations, free);
 
+    free(buffer->id);
+    free(buffer->relationship);
+    ntl_free((ntl_t) buffer->relations, free);
+    free(buffer->username);
+
     free(buffer->avatar->id);
     free(buffer->avatar->tag);
     free(buffer->avatar->filename);
@@ -98,4 +103,5 @@ void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
     free(buffer->avatar->metadata->type);
     free(buffer->avatar->metadata);
     free(buffer->avatar);
+
 }

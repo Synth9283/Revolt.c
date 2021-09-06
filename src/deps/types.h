@@ -69,13 +69,6 @@ struct RevoltUserRelation {
 };
 
 /*
-<<<<<<< HEAD:src/types.h
- * Holds information about mutual servers and friends.
-*/
-struct RevoltMutuals {
-    char** servers;
-    char** friends;
-=======
  * Holds informations about a user's status.
 */
 struct RevoltUserStatus {
@@ -88,7 +81,6 @@ struct RevoltUserStatus {
 */
 struct RevoltBotInfo {
     char* owner;
->>>>>>> 44b8b124c2117e29ef1b87634ea120aa71546cae:src/deps/types.h
 };
 
 #endif
