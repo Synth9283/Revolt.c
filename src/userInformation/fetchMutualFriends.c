@@ -3,9 +3,9 @@
  * Revolt user with an id.
 */
 
-#include "deps/revolt.h"
-#include "deps/json-utils/utils.h"
-#include "deps/cee-utils/json-actor.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
+#include "../deps/cee-utils/json-actor.h"
 
 int revoltFetchMutualFriends(struct RevoltClient* client, const char* users, const char* target) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s/mutual", target);

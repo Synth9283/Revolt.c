@@ -2,7 +2,7 @@
 CC = gcc
 SRC = $(shell find . -type f -name "*.c")
 OBJ = $(SRC:.c=.o)
-REVOLTC_SRC = $(wildcard src/*.c)
+REVOLTC_SRC = $(wildcard src/*/*.c)
 REVOLTC_OBJ = $(REVOLTC_SRC:.c=.o)
 FLAGS = -g -O2
 DEST = /usr/local/include/revoltc/

@@ -2,9 +2,9 @@
  * Source file for revoltFetchUserInfo
 */
 
-#include "deps/revolt.h"
-#include "deps/json-utils/utils.h"
-#include "deps/cee-utils/json-actor.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
+#include "../deps/cee-utils/json-actor.h"
 
 void relationFromJSON(char* json, size_t length, void* relationPtr) {
     struct RevoltUserRelation* relation = relationPtr;

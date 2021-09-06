@@ -2,8 +2,8 @@
  * Source file for revoltSendMessage
 */
 
-#include "deps/revolt.h"
-#include "deps/json-utils/utils.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
 
 int revoltSendMessage(struct RevoltClient* client, const char* message, const char* target) {
     char* postJSON = mprintf("{\"content\": \"%s\", \"nonce\": \"2321312312312x\"}", message);

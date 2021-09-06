@@ -2,8 +2,8 @@
  * Source file for revoltChangeUsername
 */
 
-#include "deps/revolt.h"
-#include "deps/json-utils/utils.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
 
 int revoltChangeUsername(struct RevoltClient* client, const char* username, const char* password) {
     char* patchJSON = mprintf("{\"username\": \"%s\", \"password\": \"%s\"}}", username, password);

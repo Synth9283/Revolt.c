@@ -4,9 +4,9 @@
 */
 
 #include <stdio.h>
-#include "deps/revolt.h"
-#include "deps/json-utils/utils.h"
-#include "deps/cee-utils/json-actor.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
+#include "../deps/cee-utils/json-actor.h"
 
 int revoltFetchDefaultUserAvatar(struct RevoltClient* client, const char* target, FILE* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s/default_avatar", target);

@@ -2,8 +2,8 @@
  * Source file for revoltEditUser
 */
 
-#include "deps/revolt.h"
-#include "deps/json-utils/utils.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
 
 enum RevoltUserEditObject {
     STATUS = 0x01,
