@@ -175,3 +175,108 @@ struct SizedBuffer getRequest(const char* url, const char* json, const int count
 
     return buffer;
 }
+
+struct SizedBuffer patchRequest(const char* url, const char* json, const int count, ...) {
+    int index;
+    va_list headers;
+    struct curl_slist* chunk;
+    struct SizedBuffer buffer;
+    CURL* curl;
+    
+    curl = curl_easy_init();
+    chunk = NULL;
+    buffer.length = 0;
+    buffer.string = NULL;
+    va_start(headers, count);
+
+    /* Register headers into the cURL handler */
+    for(index = 0; index < count; index++) {
+        chunk = curl_slist_append(chunk, va_arg(headers, char*));
+    }
+
+    /* Register options */
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeResponse);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+    curl_easy_setopt(curl, CURLOPT_URL, url);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+    
+    curl_easy_perform(curl);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, NULL);
+
+    curl_easy_cleanup(curl);
+    curl_slist_free_all(chunk);
+
+    return buffer;
+}
+
+struct SizedBuffer putRequest(const char* url, const char* json, const int count, ...) {
+    int index;
+    va_list headers;
+    struct curl_slist* chunk;
+    struct SizedBuffer buffer;
+    CURL* curl;
+    
+    curl = curl_easy_init();
+    chunk = NULL;
+    buffer.length = 0;
+    buffer.string = NULL;
+    va_start(headers, count);
+
+    /* Register headers into the cURL handler */
+    for(index = 0; index < count; index++) {
+        chunk = curl_slist_append(chunk, va_arg(headers, char*));
+    }
+
+    /* Register options */
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeResponse);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+    curl_easy_setopt(curl, CURLOPT_URL, url);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+    
+    curl_easy_perform(curl);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, NULL);
+
+    curl_easy_cleanup(curl);
+    curl_slist_free_all(chunk);
+
+    return buffer;
+}
+
+struct SizedBuffer deleteRequest(const char* url, const char* json, const int count, ...) {
+    int index;
+    va_list headers;
+    struct curl_slist* chunk;
+    struct SizedBuffer buffer;
+    CURL* curl;
+    
+    curl = curl_easy_init();
+    chunk = NULL;
+    buffer.length = 0;
+    buffer.string = NULL;
+    va_start(headers, count);
+
+    /* Register headers into the cURL handler */
+    for(index = 0; index < count; index++) {
+        chunk = curl_slist_append(chunk, va_arg(headers, char*));
+    }
+
+    /* Register options */
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeResponse);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+    curl_easy_setopt(curl, CURLOPT_URL, url);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+    
+    curl_easy_perform(curl);
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, NULL);
+
+    curl_easy_cleanup(curl);
+    curl_slist_free_all(chunk);
+
+    return buffer;
+}

@@ -101,4 +101,40 @@ struct SizedBuffer postRequest(const char* url, const char* json, const int coun
 */
 struct SizedBuffer getRequest(const char* url, const char* json, const int count, ...);
 
+/*
+ * Wrapper around cURL to send PATCH requests to a certain URL, with specific
+ * headers, returning the retrieved JSON in a sized buffer. The sized buffer
+ * should have its string be freed.
+ *
+ * @param url: the url to send the request to
+ * @param url: the json to send with the request
+ * @param count: the number of header components
+ * @return: a sized buffer that holds the JSON returned from the request
+*/
+struct SizedBuffer patchRequest(const char* url, const char* json, const int count, ...);
+
+/*
+ * Wrapper around cURL to send PUT requests to a certain URL, with specific
+ * headers, returning the retrieved JSON in a sized buffer. The sized buffer
+ * should have its string be freed.
+ *
+ * @param url: the url to send the request to
+ * @param url: the json to send with the request
+ * @param count: the number of header components
+ * @return: a sized buffer that holds the JSON returned from the request
+*/
+struct SizedBuffer putRequest(const char* url, const char* json, const int count, ...);
+
+/*
+ * Wrapper around cURL to send DELETE requests to a certain URL, with specific
+ * headers, returning the retrieved JSON in a sized buffer. The sized buffer
+ * should have its string be freed.
+ *
+ * @param url: the url to send the request to
+ * @param url: the json to send with the request
+ * @param count: the number of header components
+ * @return: a sized buffer that holds the JSON returned from the request
+*/
+struct SizedBuffer deleteRequest(const char* url, const char* json, const int count, ...);
+
 #endif
