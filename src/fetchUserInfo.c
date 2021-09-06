@@ -1,5 +1,5 @@
 /*
- * Source file for revoltGetUserInfo
+ * Source file for revoltFetchUserInfo
 */
 
 #include "deps/revolt.h"
@@ -26,7 +26,7 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
     extract_ntl_from_json(json, length, &deserializer);
 }
 
-int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
+int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s", target);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* useridHeader = mprintf("x-user-id: %s", client->userid);
