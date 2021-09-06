@@ -5,8 +5,37 @@
 #include "../deps/types.h"
 #include "../deps/revolt.h"
 #include "../deps/ulid/ulid.h"
+#include "../deps/cee-utils/ntl.h"
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
+
+void attachmentFromJSON(char* json, size_t length, void* attachmentPtr) {
+    struct RevoltAttachment* attachment = attachment;
+
+    json_extract(json, length,
+                 "(_id):?s,"
+                 "(tag):?s,"
+                 "(size):d,"
+                 "(filename):?s,"
+                 "(metadata.type):?s,"
+                 "(content_type):?s",
+                 &attachment->id,
+                 &attachment->tag,
+                 &attachment->size,
+                 &attachment->filename,
+                 &attachment->metadata.type,
+                 &attachment->contentType);
+}
+
+void attachmentsFromJSON(char* json, size_t length, NTL_T(struct RevoltAttachment)* attachments) {
+    struct ntl_deserializer deserializer = {
+        .elem_size = sizeof(struct RevoltAttachment),
+        .elem_from_buf = attachmentFromJSON,
+        .ntl_recipient_p = (void***) attachments
+    };
+
+    extract_ntl_from_json(json, length, &deserializer);
+}
 
 int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* message, const char* target, struct RevoltFetchMessagesParams* params) {
     char ulidBuffer[32] = {0};
@@ -21,6 +50,7 @@ int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* messag
     char* useridHeader = mprintf("x-user-id: %s", client->userid);
 
     struct SizedBuffer response = getRequest(getURL, getJSON, 2, sessionHeader, useridHeader);
+    
 
     json_extract(response.string, response.length,
                 "(_id):?s,"
@@ -29,12 +59,7 @@ int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* messag
                 "(author):?s,"
                 "(content.type):?s,"
                 "(content.content):?s,"
-                "(attachements._id):?s,"
-                "(attachements.tag):?s,"
-                "(attachements.size):d,"
-                "(atttachements.filename):?s,"
-                "(attachements.metadata.type):?s,"
-                "(attachements.content_type):?s,"
+                "(attachements):F,"
                 "(edited.$date):?s,"
                 "(embed.type):?s,"
                 "(mentions):?s,"
@@ -45,12 +70,8 @@ int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* messag
                 &message->author,
                 &message->content.type,
                 &message->content.content,
-                &message->attachments->id,
-                &message->attachments->tag,
-                &message->attachements->size,
-                &message->attachements->filename,
-                &message->attachements->metadata.type,
-                &message->attachments->contentType,
+                attachmentsFromJSON,
+                &message->attachments,
                 &message->edited.date,
                 &message->embed->type,
                 &message->mentions,
