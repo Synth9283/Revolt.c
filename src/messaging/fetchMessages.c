@@ -50,7 +50,6 @@ int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* messag
     char* useridHeader = mprintf("x-user-id: %s", client->userid);
 
     struct SizedBuffer response = getRequest(getURL, getJSON, 2, sessionHeader, useridHeader);
-    
 
     json_extract(response.string, response.length,
                 "(_id):?s,"
