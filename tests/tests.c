@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../src/revolt.h"
+#include "../src/deps/revolt.h"
 #include "../src/deps/cee-utils/ntl.h"
 
 int main() {
