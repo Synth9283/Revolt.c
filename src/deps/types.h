@@ -49,12 +49,15 @@ struct RevoltImageInfo {
 */
 struct RevoltUserInfo {
     char* id;
-    struct RevoltImageInfo* avatar;
-    int badges;
-    int online;
-    struct RevoltUserRelation** relations;
-    char* relationship;
     char* username;
+    struct RevoltImageInfo* avatar;
+    struct RevoltUserRelation** relations;
+    int badges;
+    struct RevoltUserStatus* status;
+    char* relationship;
+    int online;
+    int flags;
+    struct RevoltBotInfo* bot;
 };
 
 /*
@@ -66,11 +69,26 @@ struct RevoltUserRelation {
 };
 
 /*
+<<<<<<< HEAD:src/types.h
  * Holds information about mutual servers and friends.
 */
 struct RevoltMutuals {
     char** servers;
     char** friends;
+=======
+ * Holds informations about a user's status.
+*/
+struct RevoltUserStatus {
+    char* text;
+    char* presence;
+};
+
+/*
+ * Holds information about a bot.
+*/
+struct RevoltBotInfo {
+    char* owner;
+>>>>>>> 44b8b124c2117e29ef1b87634ea120aa71546cae:src/deps/types.h
 };
 
 #endif

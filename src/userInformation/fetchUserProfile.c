@@ -1,13 +1,13 @@
 /*
- * Source file for revoltGetUserProfile, which retrieves the profile for a
+ * Source file for revoltFetchUserProfile, which retrieves the profile for a
  * Revolt user with an id.
 */
 
-#include "revolt.h"
-#include "deps/json-utils/utils.h"
-#include "deps/cee-utils/json-actor.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
+#include "../deps/cee-utils/json-actor.h"
 
-int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct RevoltUserProfile* buffer) {
+int revoltFetchUserProfile(struct RevoltClient* client, const char* target, struct RevoltUserProfile* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s/profile", target);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
@@ -35,7 +35,8 @@ int revoltGetUserProfile(struct RevoltClient* client, const char* target, struct
                  &buffer->background->metadata->width,
                  &buffer->background->size,
                  &buffer->background->tag,
-                 &buffer->content);
+                 &buffer->content
+                );
 
     free(getURL);
     free(sessionHeader);

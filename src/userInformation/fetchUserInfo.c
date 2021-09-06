@@ -1,10 +1,10 @@
 /*
- * Source file for revoltGetUserInfo
+ * Source file for revoltFetchUserInfo
 */
 
-#include "revolt.h"
-#include "deps/json-utils/utils.h"
-#include "deps/cee-utils/json-actor.h"
+#include "../deps/revolt.h"
+#include "../deps/json-utils/utils.h"
+#include "../deps/cee-utils/json-actor.h"
 
 void relationFromJSON(char* json, size_t length, void* relationPtr) {
     struct RevoltUserRelation* relation = relationPtr;
@@ -26,7 +26,7 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
     extract_ntl_from_json(json, length, &deserializer);
 }
 
-int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
+int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s", target);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
@@ -40,7 +40,8 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
 
     json_extract(response.string, response.length,
                  "(_id):?s,"
-                 "(avatar._id):?s"
+                 "(username):?s,"
+                 "(avatar._id):?s,"
                  "(avatar.content_type):?s,"
                  "(avatar.filename):?s,"
                  "(avatar.metadata.height):d,"
@@ -48,12 +49,16 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
                  "(avatar.metadata.width):d,"
                  "(avatar.size):d,"
                  "(avatar.tag):?s,"
-                 "(badges):d,"
-                 "(online):b,"
                  "(relations):F,"
-                 "(relationship):?s"
-                 "(username):?s",
+                 "(badges):d,"
+                 "(status.text):?s,"
+                 "(status.presence):?s,"
+                 "(relationship):?s,"
+                 "(online):b,"
+                 "(flags):d,"
+                 "(bot.owner):b",
                  &buffer->id,
+                 &buffer->username,
                  &buffer->avatar->id,
                  &buffer->avatar->contentType,
                  &buffer->avatar->filename,
@@ -62,12 +67,15 @@ int revoltGetUserInfo(struct RevoltClient* client, const char* target, struct Re
                  &buffer->avatar->metadata->width,
                  &buffer->avatar->size,
                  &buffer->avatar->tag,
-                 &buffer->badges,
-                 &buffer->online,
                  relationsFromJSON,
                  &relations,
+                 &buffer->badges,
+                 &buffer->status->text,
+                 &buffer->status->presence,
                  &buffer->relationship,
-                 &buffer->username
+                 &buffer->online,
+                 &buffer->flags,
+                 &buffer->bot->owner
                 );
 
     buffer->relations = relations;
