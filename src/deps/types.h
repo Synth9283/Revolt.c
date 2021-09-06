@@ -43,24 +43,27 @@ struct RevoltChannelMember {
     char** roles;
 };
 
-struct RevoltChannelMessages {
+struct RevoltMessage {
+    char* id;
+    int nonce;
+    char* channel;
+    char* author;
     struct {
-        char* id;
-        char* string;
-        char* channel;
-        char* author;
-        struct {
-            char* type;
-            char* content;
-        } content;
-        struct RevoltAttachment** attachments;
-        struct {
-            char* date;
-        } editied;
-        struct RevoltEmbed** embeds;
-        char** mentions;
-        char** replies;
-    } messages;
+        char* type;
+        char* content;
+    } content;
+    struct RevoltAttachment** attachments;
+    struct {
+        char* date;
+    } edited;
+    struct RevoltEmbed** embeds;
+    char** mentions;
+    char** replies;
+    
+};
+
+struct RevoltChannelMessages {
+    struct RevoltMessage *message;
     struct RevoltUserInfo** users;
     struct RevoltChannelMember** members;
 };
