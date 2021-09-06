@@ -2,7 +2,6 @@
  * Source file for fetching a message from Revolt.
 */
 
-#include "../deps/types.h"
 #include "../deps/revolt.h"
 #include "../deps/json-utils/utils.h"
 
