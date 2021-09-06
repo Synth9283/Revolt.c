@@ -1,5 +1,5 @@
 /*
- * Source file for editUser
+ * Source file for revoltEditUser
 */
 
 #include "deps/revolt.h"
