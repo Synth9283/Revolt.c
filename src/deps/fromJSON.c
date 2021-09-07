@@ -7,7 +7,6 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-
 void attachmentFromJSON(char* json, size_t length, void* attachmentPtr) {
     struct RevoltAttachment* attachment = attachment;
 
@@ -51,6 +50,22 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
         .elem_size = sizeof(struct RevoltUserRelation),
         .elem_from_buf = relationFromJSON,
         .ntl_recipient_p = (void***) relations
+    };
+
+    extract_ntl_from_json(json, length, &deserializer);
+}
+
+void stringFromJSON(char* json, size_t length, void* stringPtr) {
+    struct RevoltString* string = (struct RevoltString*) stringPtr;
+
+    json_extract(json, length, "(STRING_KEY_HERE):?s", &string->data);
+}
+
+void stringsFromJSON(char* json, size_t length, NTL_T(struct RevoltString)* strings) {
+    struct ntl_deserializer deserializer = {
+        .elem_size = sizeof(struct RevoltString),
+        .elem_from_buf = relationFromJSON,
+        .ntl_recipient_p = (void***) strings
     };
 
     extract_ntl_from_json(json, length, &deserializer);

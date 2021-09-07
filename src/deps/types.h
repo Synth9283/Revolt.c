@@ -18,6 +18,10 @@ struct RevoltClient {
     char* userid;
 };
 
+struct RevoltString {
+    char* data;
+};
+
 /*
  * The data required for creating a Revolt account
 */
