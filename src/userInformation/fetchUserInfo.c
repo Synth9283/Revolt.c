@@ -6,25 +6,6 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-void relationFromJSON(char* json, size_t length, void* relationPtr) {
-    struct RevoltUserRelation* relation = relationPtr;
-
-    json_extract(json, length,
-                 "(_id):?s,"
-                 "(status):?s",
-                 &relation->id,
-                 &relation->status);
-}
-
-void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelation)* relations) {
-    struct ntl_deserializer deserializer = {
-        .elem_size = sizeof(struct RevoltUserRelation),
-        .elem_from_buf = relationFromJSON,
-        .ntl_recipient_p = (void***) relations
-    };
-
-    extract_ntl_from_json(json, length, &deserializer);
-}
 
 int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
     char* getURL = mprintf("https://api.revolt.chat/users/%s", target);

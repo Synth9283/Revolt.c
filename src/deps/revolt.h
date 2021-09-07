@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "types.h"
+#include "cee-utils/ntl.h"
 
 /*
  * Changes a Revolt user email
@@ -280,5 +281,11 @@ void revoltFreeUserInfo(struct RevoltUserInfo* buffer);
  * @param buffer: The buffer to free
 */
 void revoltFreeUserProfile(struct RevoltUserProfile* buffer);
+
+void attachmentFromJSON(char* json, size_t length, void* attachmentPtr);
+
+void attachmentsFromJSON(char* json, size_t length, NTL_T(struct RevoltAttachment)* attachments);
+
+void relationFromJSON(char* json, size_t length, void* relationPtr);
 
 #endif

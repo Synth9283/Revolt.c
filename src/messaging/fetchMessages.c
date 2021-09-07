@@ -9,34 +9,6 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-void attachmentFromJSON(char* json, size_t length, void* attachmentPtr) {
-    struct RevoltAttachment* attachment = attachment;
-
-    json_extract(json, length,
-                 "(_id):?s,"
-                 "(tag):?s,"
-                 "(size):d,"
-                 "(filename):?s,"
-                 "(metadata.type):?s,"
-                 "(content_type):?s",
-                 &attachment->id,
-                 &attachment->tag,
-                 &attachment->size,
-                 &attachment->filename,
-                 &attachment->metadata.type,
-                 &attachment->contentType);
-}
-
-void attachmentsFromJSON(char* json, size_t length, NTL_T(struct RevoltAttachment)* attachments) {
-    struct ntl_deserializer deserializer = {
-        .elem_size = sizeof(struct RevoltAttachment),
-        .elem_from_buf = attachmentFromJSON,
-        .ntl_recipient_p = (void***) attachments
-    };
-
-    extract_ntl_from_json(json, length, &deserializer);
-}
-
 int revoltFetchMessages(struct RevoltClient* client, struct RevoltMessage* message, const char* channel, struct RevoltFetchMessagesParams* params) {
     char ulidBuffer[32] = {0};
     struct ulid_generator generator = {0};
