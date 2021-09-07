@@ -18,6 +18,83 @@ struct RevoltClient {
     char* userid;
 };
 
+/*
+ * The data required for creating a Revolt account
+*/
+struct RevoltCreateData {
+    char* email;
+    char* password;
+    char* invite;
+    char* captcha;
+};
+
+/*
+ * The data required for logging into a Revolt account
+*/
+struct RevoltLoginData {
+    char* email;
+    char* password;
+    char* device_name;
+    char* captcha;
+};
+
+/*
+ * The loggin session data recieved after logging in
+*/
+struct RevoltLoginSession {
+    char* id;
+    char* user_id;
+    char* session_token;
+};
+
+/*
+ * The data required for when resetting the password
+*/
+struct RevoltPasswordResetData {
+    char* email;
+    char* captcha;
+};
+
+/*
+ * The data required for when confirming a password reset
+*/
+struct RevoltConfirmPasswordResetData {
+    char* password;
+    char* token;
+};
+
+/*
+ * The data required for changing a Revolt user password
+*/
+struct RevoltChangePasswordData {
+    char* password;
+    char* newPassword;
+};
+
+/*
+ * The data required for changing a Revolt user email
+*/
+struct RevoltChangeEmailData {
+    char* password;
+    char* newEmail;
+};
+
+/*
+ * The account info data
+*/
+struct RevoltAccountInfo {
+    char* id;
+    char* email;
+};
+
+/*
+ * The session data
+*/
+struct RevoltSession {
+    char* id;
+    char* friendlyName;
+};
+
 struct RevoltAttachment {
     char* id;
     char* tag;
@@ -55,7 +132,6 @@ struct RevoltMessageEdited {
 /*
  * Used for storing the message object from Revolt
 */
-
 struct RevoltMessage {
     char* id;
     int nonce;
@@ -73,7 +149,6 @@ struct RevoltMessage {
 /*
  * Used for fetching channel messages from Revolt
 */
-
 struct RevoltChannelMessages {
     struct RevoltMessage *message;
     struct RevoltUserInfo** users;
@@ -83,7 +158,6 @@ struct RevoltChannelMessages {
 /*
  * Used for fetching message changes from Revolt
 */
-
 struct RevoltMessageChange {
     char* id;
     char* nonce;
