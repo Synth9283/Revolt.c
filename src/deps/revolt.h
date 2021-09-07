@@ -5,14 +5,14 @@
 #include "types.h"
 
 /*
- * Achknowledges a message from a channel
+ * Acknowledges a message from a channel
  *
  * @param client: the Revolt client
  * @param channel: the Revolt channel
  * @param message: the Revolt message
  * @return: HTTP status code
 */
-int revoltAchknowledgeMessage(struct RevoltClient* client, const char* channel, const char* message);
+int revoltAcknowledgeMessage(struct RevoltClient* client, const char* channel, const char* message);
 
 /*
  * Deletes a message
