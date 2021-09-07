@@ -37,7 +37,7 @@ void attachmentsFromJSON(char* json, size_t length, NTL_T(struct RevoltAttachmen
     extract_ntl_from_json(json, length, &deserializer);
 }
 
-int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* message, const char* target, struct RevoltFetchMessagesParams* params) {
+int revoltFetchMessages(struct RevoltClient* client, struct RevoltMessage* message, const char* channel, struct RevoltFetchMessagesParams* params) {
     char ulidBuffer[32] = {0};
     struct ulid_generator generator = {0};
 
@@ -45,7 +45,7 @@ int revoltFetchMessage(struct RevoltClient* client, struct RevoltMessage* messag
     ulid_generate(&generator, ulidBuffer);
 
     char* getJSON = mprintf("{\"limit\": %d, \"before\": \"%s\", \"after\": \"%s\", \"sort\": \"%s\", \"nearby\": \"%s\", \"include_users\": %d}", params->limit, params->before, params->after, params->sort, params->nearby, params->includeUsers);
-    char* getURL = mprintf("https://api.revolt.chat/channels/\"%s\"/messages", target);
+    char* getURL = mprintf("https://api.revolt.chat/channels/\"%s\"/messages", channel);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* useridHeader = mprintf("x-user-id: %s", client->userid);
 
