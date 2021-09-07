@@ -320,4 +320,23 @@ void relationFromJSON(char* json, size_t length, void* relationPtr);
 */
 void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelation)* relations);
 
+/*
+ * Converts a string in JSON form into a string structure.
+ *
+ * @param json: the relation in JSON form
+ * @param length: the length of the JSON
+ * @param stringPtr: pointer to the structure to hold the data
+*/
+void stringFromJSON(char* json, size_t length, void* stringPtr);
+
+/*
+ * Converts a JSON list of attachments into a null-terminated list
+ * of string structures.
+ *
+ * @param json: the list in JSON form
+ * @param length: the length of the JSON
+ * @param strings: the null-terminated list to put the strings in
+*/
+void stringsFromJSON(char* json, size_t length, NTL_T(struct RevoltString)* strings);
+
 #endif
