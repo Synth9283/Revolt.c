@@ -282,10 +282,42 @@ void revoltFreeUserInfo(struct RevoltUserInfo* buffer);
 */
 void revoltFreeUserProfile(struct RevoltUserProfile* buffer);
 
+/*
+ * Converts an attachment in JSON form into an attachment structure.
+ *
+ * @param json: the relation in JSON form
+ * @param length: the length of the JSON
+ * @param attachmentPtr: pointer to the structure to hold the data
+*/
 void attachmentFromJSON(char* json, size_t length, void* attachmentPtr);
 
+/*
+ * Converts a JSON list of attachments into a null-terminated list
+ * of attachment structures.
+ *
+ * @param json: the list in JSON form
+ * @param length: the length of the JSON
+ * @param relations: the null-terminated list to put the attachments in
+*/
 void attachmentsFromJSON(char* json, size_t length, NTL_T(struct RevoltAttachment)* attachments);
 
+/*
+ * Converts a relation in JSON form into a relation structure.
+ *
+ * @param json: the relation in JSON form
+ * @param length: the length of the JSON
+ * @param relationPtr: pointer to the structure to hold the data
+*/
 void relationFromJSON(char* json, size_t length, void* relationPtr);
+
+/*
+ * Converts a JSON list of relations into a null-terminated list
+ * of relation structures.
+ *
+ * @param json: the list in JSON form
+ * @param length: the length of the JSON
+ * @param relations: the null-terminated list to put the relations in
+*/
+void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelation)* relations);
 
 #endif

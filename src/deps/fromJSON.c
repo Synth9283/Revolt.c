@@ -55,4 +55,3 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
 
     extract_ntl_from_json(json, length, &deserializer);
 }
-
