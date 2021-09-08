@@ -321,6 +321,24 @@ void relationFromJSON(char* json, size_t length, void* relationPtr);
 void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelation)* relations);
 
 /*
+ * Converts a session in JSON form into a session structure
+ *
+ * @param json: The session in JSON form
+ * @param length: The length of the JSON
+ * @param sessionPtr: Pointer to the structure to hold the data
+*/
+void sessionFromJSON(char* json, size_t length, void* sessionPtr);
+
+/*
+ * Converts a JSON list of sessions into a null-terminated list of session structures
+ *
+ * @param json: The list in JSON form
+ * @param length: The length of the JSON
+ * @param sessions: The null-terminated list to put the sessions in
+*/
+void sessionsFromJSON(char* json, size_t length, NTL_T(struct RevoltSession)* sessions);
+
+/*
  * Converts a JSON list of strings into a char**
  *
  * @param strArr: The buffer to write the data into. Do not allocate memory since the function does that for you

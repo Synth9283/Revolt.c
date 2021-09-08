@@ -56,6 +56,27 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
     extract_ntl_from_json(json, length, &deserializer);
 }
 
+void sessionFromJSON(char* json, size_t length, void* sessionPtr) {
+    struct RevoltSession* session = sessionPtr;
+
+    json_extract(json, length,
+                "(id):?s,"
+                "(friendly_name):?s",
+                &session->id,
+                &session->friendlyName
+                );
+}
+
+void sessionsFromJSON(char* json, size_t length, NTL_T(struct RevoltSession)* sessions) {
+    struct ntl_deserializer deserializer = {
+        .elem_size = sizeof(struct RevoltSession),
+        .elem_from_buf = sessionFromJSON,
+        .ntl_recipient_p = (void***) sessions
+    };
+
+    extract_ntl_from_json(json, length, &deserializer);
+}
+
 void stringsFromListJSON(char** strArr, NTL_T(struct sized_buffer) buffer) {
     size_t bufferLen = ntl_length((ntl_t)buffer);
     if (!bufferLen) return;

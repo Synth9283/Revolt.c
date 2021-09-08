@@ -13,12 +13,15 @@ int revoltFetchSessions(struct RevoltClient* client, struct RevoltSession** sess
 
     struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, useridHeader);
 
+    NTL_T(struct RevoltSession) sessionsList = NULL;
+
     json_extract(response.string, response.length,
-                "(id):?s,"
-                "(friendly_name):?s",
-                &sessions->id,
-                &sessions->email
+                "[F]",
+                sessionsFromJSON,
+                &sessions
                 );
+
+    sessions = sessionsList;
 
     free(response.string);
     free(getURL);
