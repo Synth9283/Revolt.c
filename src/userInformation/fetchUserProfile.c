@@ -7,15 +7,15 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-int revoltFetchUserProfile(struct RevoltClient* client, const char* target, struct RevoltUserProfile* buffer) {
-    char* getURL = mprintf("https://api.revolt.chat/users/%s/profile", target);
+int revoltFetchUserProfile(struct RevoltClient* client, struct RevoltUserProfile* userProfile, const char* user) {
+    char* getURL = mprintf("https://api.revolt.chat/users/%s/profile", user);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
     struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, userIdHeader);
 
-    buffer->background = calloc(1, sizeof(struct RevoltImageInfo));
-    buffer->background->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
+    userProfile->background = calloc(1, sizeof(struct RevoltImageInfo));
+    userProfile->background->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
 
     json_extract(response.string, response.length,
                  "(background._id):?s,"
@@ -27,15 +27,15 @@ int revoltFetchUserProfile(struct RevoltClient* client, const char* target, stru
                  "(background.size):d,"
                  "(background.tag):?s,"
                  "(content):?s",
-                 &buffer->background->id,
-                 &buffer->background->contentType,
-                 &buffer->background->filename,
-                 &buffer->background->metadata->height,
-                 &buffer->background->metadata->type,
-                 &buffer->background->metadata->width,
-                 &buffer->background->size,
-                 &buffer->background->tag,
-                 &buffer->content
+                 &userProfile->background->id,
+                 &userProfile->background->contentType,
+                 &userProfile->background->filename,
+                 &userProfile->background->metadata->height,
+                 &userProfile->background->metadata->type,
+                 &userProfile->background->metadata->width,
+                 &userProfile->background->size,
+                 &userProfile->background->tag,
+                 &userProfile->content
                 );
 
     free(getURL);
@@ -46,14 +46,14 @@ int revoltFetchUserProfile(struct RevoltClient* client, const char* target, stru
     return 0;
 }
 
-void revoltFreeUserProfile(struct RevoltUserProfile* buffer) {
-    free(buffer->background->id);
-    free(buffer->background->contentType);
-    free(buffer->background->filename);
-    free(buffer->background->metadata->type);
-    free(buffer->background->tag);
-    free(buffer->content);
+void revoltFreeUserProfile(struct RevoltUserProfile* userProfile) {
+    free(userProfile->background->id);
+    free(userProfile->background->contentType);
+    free(userProfile->background->filename);
+    free(userProfile->background->metadata->type);
+    free(userProfile->background->tag);
+    free(userProfile->content);
 
-    free(buffer->background->metadata);
-    free(buffer->background);
+    free(userProfile->background->metadata);
+    free(userProfile->background);
 }

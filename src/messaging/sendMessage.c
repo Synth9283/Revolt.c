@@ -6,7 +6,7 @@
 #include "../deps/ulid/ulid.h"
 #include "../deps/json-utils/utils.h"
 
-int revoltSendMessage(struct RevoltClient* client, const char* message, const char* target) {
+int revoltSendMessage(struct RevoltClient* client, const char* message, const char* channel) {
     char ulidBuffer[32] = {0};
     struct ulid_generator generator = {0};
 
@@ -14,7 +14,7 @@ int revoltSendMessage(struct RevoltClient* client, const char* message, const ch
     ulid_generate(&generator, ulidBuffer);
 
     char* postJSON = mprintf("{\"content\": \"%s\", \"nonce\": \"%i\"}", message, ulidBuffer);
-    char* postURL = mprintf("https://api.revolt.chat/channels/%s/messages/", target);
+    char* postURL = mprintf("https://api.revolt.chat/channels/%s/messages/", channel);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* useridHeader = mprintf("x-user-id: %s", client->userid);
 

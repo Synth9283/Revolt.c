@@ -173,10 +173,10 @@ int revoltPollMessageChanges(struct RevoltClient* client, struct RevoltMessageCh
  *
  * @param client: The Revolt client
  * @param message: The message to send
- * @param target: ID of the location to send the message to
+ * @param channel: ID of the location to send the message to
  * @return: HTTP status code
 */
-int revoltSendMessage(struct RevoltClient* client, const char* message, const char* target);
+int revoltSendMessage(struct RevoltClient* client, const char* message, const char* channel);
 
 /*
  * Changes the username of a revolt user
@@ -229,30 +229,30 @@ int revoltEditUserRemove(struct RevoltClient* client, enum RevoltUserEditObject 
  * bytes to a stream.
  *
  * @param client: The Revolt client
- * @param target: The ID of the user to get the default avatar of
- * @param buffer: The stream to write to
+ * @param fp: The stream to write to
+ * @param user: The ID of the user to get the default avatar of
  * @return: HTTP status code
 */
-int revoltFetchDefaultUserAvatar(struct RevoltClient* client, const char* target, FILE* buffer);
+int revoltFetchDefaultUserAvatar(struct RevoltClient* client, FILE* fp, const char* user);
 
 /*
  * Retrieves lists of mutual servers and friends that the authenticated
  * user has with another user of a given id, and writes it to a buffer.
  *
  * @param client: The Revolt client
- * @param user: The ID of the user to get mutuals with
  * @param users: The buffer to write mutual friends and servers to
+ * @param user: The ID of the user to get mutuals with
  * @return: HTTP status code
 */
-int revoltFetchMutualFriends(struct RevoltClient* client, const char* user, const char* users);
+int revoltFetchMutualFriends(struct RevoltClient* client, struct RevoltUsers* users, const char* user);
 
 /*
  * Retrieves information about a user with the provided id, and
  * writes it to a buffer.
  *
  * @param client: The Revolt client
- * @param target: The ID of the user to use
- * @param buffer: The buffer to write the user information to
+ * @param userInfo: The buffer to write the user information to
+ * @param user: The ID of the user to use
  * @return: HTTP status code
 */
 int revoltFetchUserInfo(struct RevoltClient* client, struct RevoltUserInfo* userInfo, const char* user);
@@ -262,25 +262,25 @@ int revoltFetchUserInfo(struct RevoltClient* client, struct RevoltUserInfo* user
  * id, and writes it to a buffer.
  *
  * @param client: The Revolt client
- * @param target: The ID of the user to use
- * @param buffer: The buffer to write the user profile information to
+ * @param userProfile: The buffer to write the user profile information to
+ * @param user: The ID of the user to use
  * @return: HTTP status code
 */
-int revoltFetchUserProfile(struct RevoltClient* client, const char* target, struct RevoltUserProfile* buffer);
+int revoltFetchUserProfile(struct RevoltClient* client, struct RevoltUserProfile* userProfile, const char* user);
 
 /*
  * Frees the structure containing user information.
  *
- * @param buffer: The buffer to free
+ * @param userInfo: The buffer to free
 */
-void revoltFreeUserInfo(struct RevoltUserInfo* buffer);
+void revoltFreeUserInfo(struct RevoltUserInfo* userInfo);
 
 /*
  * Frees the structure containing user profile information.
  *
- * @param buffer: The buffer to free
+ * @param userProfile: The buffer to free
 */
-void revoltFreeUserProfile(struct RevoltUserProfile* buffer);
+void revoltFreeUserProfile(struct RevoltUserProfile* userProfile);
 
 /*
  * Converts an attachment in JSON form into an attachment structure.
@@ -319,6 +319,14 @@ void relationFromJSON(char* json, size_t length, void* relationPtr);
  * @param relations: the null-terminated list to put the relations in
 */
 void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelation)* relations);
+
+/*
+ * Converts a JSON list of strings into a char**
+ *
+ * @param strArr: The buffer to write the data into. Do not allocate memory since the function does that for you
+ * @param buffer: The null-terminated list to extract the strings from
+*/
+void stringsFromListJSON(char** strArr, NTL_T(struct sized_buffer) buffer);
 
 /*
  * Converts a string in JSON form into a string structure.

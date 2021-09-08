@@ -8,14 +8,14 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-int revoltFetchDefaultUserAvatar(struct RevoltClient* client, const char* target, FILE* buffer) {
-    char* getURL = mprintf("https://api.revolt.chat/users/%s/default_avatar", target);
+int revoltFetchDefaultUserAvatar(struct RevoltClient* client, FILE* fp, const char* user) {
+    char* getURL = mprintf("https://api.revolt.chat/users/%s/default_avatar", user);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
     struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, userIdHeader);
 
-    fwrite(response.string, sizeof(char), response.length, buffer);
+    fwrite(response.string, sizeof(char), response.length, fp);
 
     free(getURL);
     free(sessionHeader);
