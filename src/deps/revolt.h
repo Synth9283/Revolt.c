@@ -255,7 +255,7 @@ int revoltFetchMutualFriends(struct RevoltClient* client, const char* user, cons
  * @param buffer: The buffer to write the user information to
  * @return: HTTP status code
 */
-int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer);
+int revoltFetchUserInfo(struct RevoltClient* client, struct RevoltUserInfo* userInfo, const char* user);
 
 /*
  * Retrieves information about a user's profile with the provided

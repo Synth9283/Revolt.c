@@ -6,17 +6,16 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-
-int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct RevoltUserInfo* buffer) {
-    char* getURL = mprintf("https://api.revolt.chat/users/%s", target);
+int revoltFetchUserInfo(struct RevoltClient* client, struct RevoltUserInfo* userInfo, const char* user) {
+    char* getURL = mprintf("https://api.revolt.chat/users/%s", user);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
 
     struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader,
                                                         userIdHeader);
 
-    buffer->avatar = calloc(1, sizeof(struct RevoltImageInfo));
-    buffer->avatar->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
+    userInfo->avatar = calloc(1, sizeof(struct RevoltImageInfo));
+    userInfo->avatar->metadata = calloc(1, sizeof(struct RevoltImageMetadata));
     NTL_T(struct RevoltUserRelation) relations = NULL;
 
     json_extract(response.string, response.length,
@@ -38,28 +37,28 @@ int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct 
                  "(online):b,"
                  "(flags):d,"
                  "(bot.owner):b",
-                 &buffer->id,
-                 &buffer->username,
-                 &buffer->avatar->id,
-                 &buffer->avatar->contentType,
-                 &buffer->avatar->filename,
-                 &buffer->avatar->metadata->height,
-                 &buffer->avatar->metadata->type,
-                 &buffer->avatar->metadata->width,
-                 &buffer->avatar->size,
-                 &buffer->avatar->tag,
+                 &userInfo->id,
+                 &userInfo->username,
+                 &userInfo->avatar->id,
+                 &userInfo->avatar->contentType,
+                 &userInfo->avatar->filename,
+                 &userInfo->avatar->metadata->height,
+                 &userInfo->avatar->metadata->type,
+                 &userInfo->avatar->metadata->width,
+                 &userInfo->avatar->size,
+                 &userInfo->avatar->tag,
                  relationsFromJSON,
                  &relations,
-                 &buffer->badges,
-                 &buffer->status->text,
-                 &buffer->status->presence,
-                 &buffer->relationship,
-                 &buffer->online,
-                 &buffer->flags,
-                 &buffer->bot->owner
+                 &userInfo->badges,
+                 &userInfo->status->text,
+                 &userInfo->status->presence,
+                 &userInfo->relationship,
+                 &userInfo->online,
+                 &userInfo->flags,
+                 &userInfo->bot->owner
                 );
 
-    buffer->relations = relations;
+    userInfo->relations = relations;
 
     free(getURL);
     free(sessionHeader);
@@ -69,20 +68,20 @@ int revoltFetchUserInfo(struct RevoltClient* client, const char* target, struct 
     return 0;
 }
 
-void revoltFreeUserInfo(struct RevoltUserInfo* buffer) {
-    ntl_free((ntl_t) buffer->relations, free);
+void revoltFreeUserInfo(struct RevoltUserInfo* userInfo) {
+    ntl_free((ntl_t) userInfo->relations, free);
 
-    free(buffer->id);
-    free(buffer->relationship);
-    ntl_free((ntl_t) buffer->relations, free);
-    free(buffer->username);
+    free(userInfo->id);
+    free(userInfo->relationship);
+    ntl_free((ntl_t) userInfo->relations, free);
+    free(userInfo->username);
 
-    free(buffer->avatar->id);
-    free(buffer->avatar->tag);
-    free(buffer->avatar->filename);
-    free(buffer->avatar->contentType);
-    free(buffer->avatar->metadata->type);
-    free(buffer->avatar->metadata);
-    free(buffer->avatar);
+    free(userInfo->avatar->id);
+    free(userInfo->avatar->tag);
+    free(userInfo->avatar->filename);
+    free(userInfo->avatar->contentType);
+    free(userInfo->avatar->metadata->type);
+    free(userInfo->avatar->metadata);
+    free(userInfo->avatar);
 
 }
