@@ -2,6 +2,7 @@
  * JSON functions for converting dynamically sized lists to structures.
 */
 
+#include <string.h>
 #include "revolt.h"
 #include "../deps/cee-utils/ntl.h"
 #include "../deps/json-utils/utils.h"
@@ -53,6 +54,16 @@ void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelatio
     };
 
     extract_ntl_from_json(json, length, &deserializer);
+}
+
+void stringsFromListJSON(char** strArr, NTL_T(struct sized_buffer) buffer) {
+    size_t bufferLen = ntl_length((ntl_t)buffer);
+    if (!bufferLen) return;
+
+    // extract to an array of strings
+    strArr = malloc(bufferLen * sizeof(char*));
+
+    for (size_t i=0; i<bufferLen; ++i) strArr[i] = strndup(buffer[i]->start, buffer[i]->size);
 }
 
 void stringFromJSON(char* json, size_t length, void* stringPtr) {

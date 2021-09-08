@@ -207,6 +207,13 @@ struct RevoltImageMetadata {
 };
 
 /*
+ * Holds the list of users
+*/
+struct RevoltUsers {
+    char** users;
+};
+
+/*
  * Holds information about the profile of a user.
 */
 struct RevoltUserProfile {

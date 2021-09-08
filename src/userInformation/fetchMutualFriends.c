@@ -7,7 +7,8 @@
 #include "../deps/json-utils/utils.h"
 #include "../deps/cee-utils/json-actor.h"
 
-int revoltFetchMutualFriends(struct RevoltClient* client, const char* user, const char* users) {
+int revoltFetchMutualFriends(struct RevoltClient* client, struct RevoltUsers* users, const char* user) {
+    NTL_T(struct sized_buffer) userList = NULL;
     char* getURL = mprintf("https://api.revolt.chat/users/%s/mutual", user);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
     char* userIdHeader = mprintf("x-user-id: %s", client->userid);
@@ -15,9 +16,11 @@ int revoltFetchMutualFriends(struct RevoltClient* client, const char* user, cons
     struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, userIdHeader);
 
     json_extract(response.string, response.length,
-                "(users):?s",
-                &users
+                "(users):?L",
+                &userList
                 );
+
+    stringsFromListJSON(users->users, userList);
 
     free(response.string);
     free(getURL);
