@@ -8,7 +8,7 @@
 #include "../deps/cee-utils/json-actor.h"
 
 void attachmentFromJSON(char* json, size_t length, void* attachmentPtr) {
-    struct RevoltAttachment* attachment = attachment;
+    struct RevoltAttachment* attachment = attachmentPtr;
 
     json_extract(json, length,
                  "(_id):?s,"
