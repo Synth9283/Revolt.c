@@ -8,6 +8,63 @@
 #define REVOLT_FETCH_LATEST "Latest"
 #define REVOLT_FETCH_OLDEST "Oldest"
 
+/*
+ * A Revolt captcha struct
+*/
+struct RevoltCaptcha {
+    int enabled;
+    char* key;
+
+};
+
+/*
+ * A Revolt autumn file server struct
+*/
+struct RevoltAutumn {
+    int enabled;
+    char* url;
+};
+
+/*
+ * A Revolt january proxy server struct
+*/
+struct RevoltJanuary {
+    int enabled;
+    char* url;
+};
+
+/*
+ * A Revolt voso voice server struct
+*/
+struct RevoltVoso {
+    int enable;
+    char* url;
+    char* ws;
+};
+
+/*
+ * A struct containing Revolt feature objects
+*/
+struct RevoltFeatures {
+    int registration;
+    struct RevoltCaptcha* captcha;
+    int email;
+    char* invite_only;
+    struct RevoltAutumn* autumn;
+    struct RevoltJanuary* january;
+    struct RevoltVoso* voso;
+};
+
+/*
+ * A Revolt node that holds information about which features are enabled on the remote node
+*/
+struct RevoltNode {
+    char* revolt;
+    struct RevoltFeatures* features;
+    char* ws;
+    char* app;
+    char* vapid;
+};
 
 /*
  * A Revolt client that holds the token and userid of the user

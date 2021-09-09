@@ -109,6 +109,14 @@ int revoltResendVerification(struct RevoltCreateData* data);
 int revoltSendPasswordReset(struct RevoltPasswordResetData* data);
 
 /*
+ * Requests for information about which features are enabled on the remote node
+ *
+ * @param node: The remote node data buffer to write into
+ * @return: HTTP status code
+*/
+int revoltQueryNode(struct RevoltNode* node);
+
+/*
  * Acknowledges a message from a channel
  *
  * @param client: The Revolt client
