@@ -187,6 +187,24 @@ int revoltPollMessageChanges(struct RevoltClient* client, struct RevoltMessageCh
 int revoltSendMessage(struct RevoltClient* client, const char* message, const char* channel);
 
 /*
+ * Checks whether the current account requires onboarding or whether you can continue to send requests as usual
+ *
+ * @param client: The Revolt client
+ * @param onboarding: The boolean to check the onboarding status
+ * @return: HTTP status code
+*/
+int revoltOnboardingStatus(struct RevoltClient* client, int* onboarding);
+
+/*
+ * Sets a new username, completes onboarding and allows a user to start using Revolt
+ *
+ * @param client: The Revolt client
+ * @param username: The username to set for the Revolt user
+ * @return: HTTP status code
+*/
+int revoltCompleteOnboarding(struct RevoltClient* client, char* username);
+
+/*
  * Changes the username of a revolt user
  *
  * @param client: The Revolt Client
