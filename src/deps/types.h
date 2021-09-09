@@ -195,7 +195,7 @@ struct RevoltMessageEdited {
 */
 struct RevoltMessage {
     char* id;
-    int nonce;
+    char* nonce;
     char* channel;
     char* author;
     struct RevoltMessageContent* content;
