@@ -14,7 +14,7 @@ int revoltOnboardingStatus(struct RevoltClient* client, int* onboarding) {
     struct SizedBuffer response = getRequest(getURL, "", 2, sessionHeader, useridHeader);
 
     json_extract(response.string, response.length,
-                "(onboarding):d",
+                "(onboarding):b",
                 &onboarding
                 );
 
