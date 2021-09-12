@@ -72,7 +72,6 @@ struct RevoltNode {
 */
 struct RevoltClient {
     char* token;
-    char* userid;
 };
 
 struct RevoltString {
@@ -129,15 +128,15 @@ struct RevoltConfirmPasswordResetData {
 */
 struct RevoltChangePasswordData {
     char* password;
-    char* newPassword;
+    char* currentPassword;
 };
 
 /*
  * The data required for changing a Revolt user email
 */
 struct RevoltChangeEmailData {
-    char* password;
-    char* newEmail;
+    char* currentPassword;
+    char* email;
 };
 
 /*

@@ -109,6 +109,14 @@ int revoltResendVerification(struct RevoltCreateData* data);
 int revoltSendPasswordReset(struct RevoltPasswordResetData* data);
 
 /*
+ * Verifies a Revolt account email
+ *
+ * @param code: The code sent to the email
+ * @return: HTTP status code
+*/
+int revoltVerifyEmail(const char* code);
+
+/*
  * Requests for information about which features are enabled on the remote node
  *
  * @param node: The remote node data buffer to write into
