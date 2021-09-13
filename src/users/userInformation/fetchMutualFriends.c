@@ -8,9 +8,9 @@
 #include "../../deps/cee-utils/json-actor.h"
 
 int revoltFetchMutualFriends(struct RevoltClient* client, struct RevoltUsers* users, const char* user) {
-    NTL_T(struct sized_buffer) userList = NULL;
     char* getURL = mprintf("https://api.revolt.chat/users/%s/mutual", user);
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
+    NTL_T(struct sized_buffer) userList = NULL;
 
     struct SizedBuffer response = getRequest(getURL, "", 1, sessionHeader);
 
