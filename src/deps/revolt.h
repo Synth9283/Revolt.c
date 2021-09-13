@@ -41,13 +41,32 @@ int revoltCheckAuth(struct RevoltClient* client);
 int revoltCreateAccount(struct RevoltCreateData* data, const char* userId);
 
 /*
+ * Deletes all Revolt sessions
+ *
+ * @param client: The revolt client
+ * @param revokeSelf: Boolean if to revoke current session
+ * @return: HTTP status code
+*/
+int revoltdeleteAllSessions(struct RevoltClient* client, int revokeSelf);
+
+/*
  * Deletes a existing Revolt session
  *
  * @param client: The Revolt client
  * @param session: The session to delete
  * @return: HTTP status code
 */
-int revoltDeleteSession(struct RevoltClient* client, const char* session);
+int revoltDeleteSession(struct RevoltClient* client, struct RevoltSession* session);
+
+/*
+ * Edits a existing Revolt session
+ *
+ * @param client: The Revolt client
+ * @param session: The session to edit
+ * @param friendlyName: The new friendlyName to change into
+ * @return: HTTP status code
+*/
+int revoltEditSession(struct RevoltClient* client, struct RevoltSession* session, const char* friendlyName);
 
 /*
  * Fetches info from a Revolt account
@@ -83,6 +102,65 @@ int revoltLogin(struct RevoltLoginData* data, struct RevoltLoginSession* session
  * @return: HTTP status code
 */
 int revoltLogout(struct RevoltClient* client);
+
+/*
+ * Creates a Revolt bot
+ *
+ * @param client: The Revolt client
+ * @param bot: The bot buffer to write the data into once created
+ * @param data: The bot creation data to use when creating the bot
+ * @return: HTTP status code
+*/
+int revoltCreateBot(struct RevoltClient* client, struct RevoltBot* bot, struct RevoltBotCreateData* data);
+
+/*
+ * Deletes a Revolt bot
+ *
+ * @param client: The Revolt client
+ * @param bot: The bot to delete
+ * @return: HTTP status code
+*/
+int revoltDeleteBot(struct RevoltClient* client, const char* bot);
+
+/*
+ * Edits a Revolt bot
+ *
+ * @param client: The Revolt client
+ * @param data: The data to edit the bot with
+ * @param bot: The bot to edit
+ * @return: HTTP status code
+*/
+int revoltEditBot(struct RevoltClient* client, struct RevoltEditBotData* data, const char* bot);
+
+/*
+ * Fetches owned Revolt bots
+ *
+ * @param client: The Revolt client
+ * @param ownedBot: The buffer to write the owned bot into
+ * @param bot: The bot to fetch
+ * @return: HTTP status code
+*/
+int revoltFetchBot(struct RevoltClient* client, struct RevoltOwnedBot* ownedBot, const char* bot);
+
+/*
+ * Fetches a owned Revolt bot
+ *
+ * @param client: The Revolt client
+ * @param bots: The buffer to write the fetched bots into
+ * @return: HTTP status code
+*/
+int revoltFetchOwnedBots(struct RevoltClient* client, struct RevoltOwnedBots* bots);
+
+/*
+ * Invites a Revolt bot to a server or group
+ *
+ * @param client: The Revolt client
+ * @param data: The data of where to invite the bot to
+ * @param bot: The bot to invite
+ * @param inviteTo: Bitfield to specify to invite the bot to a server or group
+ * @return: HTTP status code
+*/
+int revoltInvitePublicBot(struct RevoltClient* client, struct RevoltInvitePublicBotData* data, const char* bot, enum RevoltInviteTo inviteTo);
 
 /*
  * Confirms a password reset for a Revolt account
@@ -371,6 +449,42 @@ void sessionFromJSON(char* json, size_t length, void* sessionPtr);
  * @param sessions: The null-terminated list to put the sessions in
 */
 void sessionsFromJSON(char* json, size_t length, NTL_T(struct RevoltSession)* sessions);
+
+/*
+ * Converts a bot in JSON form into a bot structure
+ *
+ * @param json: The bot in JSON form
+ * @param length: The length of the JSON
+ * @param botPtr: Pointer to the structure to hold the data
+*/
+void botFromListJSON(char* json, size_t length, void* botPtr);
+
+/*
+ * Converts a JSON list of bots into a null-terminated list of bot structures
+ *
+ * @param json: The list in JSON form
+ * @param length: The length of the JSON
+ * @param bots: The null-terminated list to put the bots in
+*/
+void botsFromListJSON(char* json, size_t length, NTL_T(struct RevoltBot)* bots);
+
+/*
+ * Converts a user in JSON form into a user structure
+ *
+ * @param json: The user in JSON form
+ * @param length: The length of the JSON
+ * @param userPtra: Pointer to the structure to hold the data
+*/
+void userFromListJSON(char* json, size_t length, void* userPtr);
+
+/*
+ * Conters a JSON list of users into a null-terminated list of user structures
+ *
+ * @param json: The list in JSON form
+ * @param length: The length of the JSON
+ * @param users: The null-terminated list to put the users in
+*/
+void usersFromListJSON(char* json, size_t length, NTL_T(struct RevoltUserInfo)* users);
 
 /*
  * Converts a JSON list of strings into a char**

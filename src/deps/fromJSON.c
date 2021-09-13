@@ -43,7 +43,8 @@ void relationFromJSON(char* json, size_t length, void* relationPtr) {
                  "(_id):?s,"
                  "(status):?s",
                  &relation->id,
-                 &relation->status);
+                 &relation->status
+                );
 }
 
 void relationsFromJSON(char* json, size_t length, NTL_T(struct RevoltUserRelation)* relations) {
@@ -60,9 +61,9 @@ void sessionFromJSON(char* json, size_t length, void* sessionPtr) {
     struct RevoltSession* session = sessionPtr;
 
     json_extract(json, length,
-                "(id):?s,"
-                "(friendly_name):?s",
-                &session->id,
+                "(_id):?s,"
+                "(name):?s",
+                &session->session,
                 &session->friendlyName
                 );
 }
@@ -72,6 +73,89 @@ void sessionsFromJSON(char* json, size_t length, NTL_T(struct RevoltSession)* se
         .elem_size = sizeof(struct RevoltSession),
         .elem_from_buf = sessionFromJSON,
         .ntl_recipient_p = (void***) sessions
+    };
+
+    extract_ntl_from_json(json, length, &deserializer);
+}
+
+void botFromListJSON(char* json, size_t length, void* botPtr) {
+    struct RevoltBot* bot = botPtr;
+    
+    json_extract(json, length,
+                "(_id):?s,"
+                "(owner):?s,"
+                "(token):?s,"
+                "(public):b,"
+                "(interaction_url)",
+                &bot->id,
+                &bot->owner,
+                &bot->token,
+                bot->_public,
+                bot->interactionsUrl
+                );
+}
+
+void botsFromListJSON(char* json, size_t length, NTL_T(struct RevoltBot)* bots) {
+    struct ntl_deserializer deserializer = {
+        .elem_size = sizeof(struct RevoltBot),
+        .elem_from_buf = botFromListJSON,
+        .ntl_recipient_p = (void***) bots
+    };
+
+    extract_ntl_from_json(json, length, &deserializer);
+}
+
+void userFromListJSON(char* json, size_t length, void* userPtr) {
+    struct RevoltUserInfo* user = userPtr;
+    NTL_T(struct RevoltUserRelation) relations = NULL;
+
+    json_extract(json, length,
+                 "(_id):?s,"
+                 "(username):?s,"
+                 "(avatar._id):?s,"
+                 "(avatar.content_type):?s,"
+                 "(avatar.filename):?s,"
+                 "(avatar.metadata.height):d,"
+                 "(avatar.metadata.type):?s,"
+                 "(avatar.metadata.width):d,"
+                 "(avatar.size):d,"
+                 "(avatar.tag):?s,"
+                 "(relations):F,"
+                 "(badges):d,"
+                 "(status.text):?s,"
+                 "(status.presence):?s,"
+                 "(relationship):?s,"
+                 "(online):b,"
+                 "(flags):d,"
+                 "(bot.owner):s",
+                 &user->id,
+                 &user->username,
+                 &user->avatar->id,
+                 &user->avatar->contentType,
+                 &user->avatar->filename,
+                 &user->avatar->metadata->height,
+                 &user->avatar->metadata->type,
+                 &user->avatar->metadata->width,
+                 &user->avatar->size,
+                 &user->avatar->tag,
+                 relationsFromJSON,
+                 &relations,
+                 &user->badges,
+                 &user->status->text,
+                 &user->status->presence,
+                 &user->relationship,
+                 &user->online,
+                 &user->flags,
+                 &user->bot->owner
+                );
+    user->relations = relations;
+}
+
+void usersFromListJSON(char* json, size_t length, NTL_T(struct RevoltUserInfo)* users) {
+    struct ntl_deserializer deserializer = {
+        .elem_size = sizeof(struct RevoltUserInfo),
+        .elem_from_buf = userFromListJSON,
+        .ntl_recipient_p = (void***) users
     };
 
     extract_ntl_from_json(json, length, &deserializer);

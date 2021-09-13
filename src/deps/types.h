@@ -94,7 +94,8 @@ struct RevoltCreateData {
 struct RevoltLoginData {
     char* email;
     char* password;
-    char* device_name;
+    char* challenge;
+    char* friendly_name;
     char* captcha;
 };
 
@@ -103,8 +104,10 @@ struct RevoltLoginData {
 */
 struct RevoltLoginSession {
     char* id;
-    char* user_id;
-    char* session_token;
+    char* userId;
+    char* token;
+    char* name;
+    char* subscription;
 };
 
 /*
@@ -151,7 +154,7 @@ struct RevoltAccountInfo {
  * The session data
 */
 struct RevoltSession {
-    char* id;
+    char* session;
     char* friendlyName;
 };
 
@@ -302,7 +305,7 @@ struct RevoltUserInfo {
     char* relationship;
     int online;
     int flags;
-    struct RevoltBotInfo* bot;
+    struct RevoltBot* bot;
 };
 
 /*
@@ -324,8 +327,70 @@ struct RevoltUserStatus {
 /*
  * Holds information about a bot.
 */
-struct RevoltBotInfo {
+struct RevoltBot {
+    char* id;
     char* owner;
+    char* token;
+    int _public;
+    char* interactionsUrl;
+};
+
+/*
+ * Holds data for creating a bot
+*/
+struct RevoltBotCreateData {
+    char* name;
+};
+
+/*
+ * Holds data for fetching owned bots
+*/
+struct RevoltOwnedBots {
+    struct RevoltBot** bots;
+    struct RevoltUserInfo** users;
+};
+
+/*
+ * Holds the data for fetching a owned bot
+*/
+struct RevoltOwnedBot {
+    struct RevoltBot* bot;
+    struct RevoltUserInfo* user;
+};
+
+/*
+ * Holds the data for editing a bot
+*/
+struct RevoltEditBotData {
+    char* name;
+    int _public;
+    char* interactionsUrl;
+    char* remove;
+};
+
+/*
+ * Holds the data for inviting a public bot
+*/
+struct RevoltInvitePublicBotData {
+    char* server;
+    char* group;
+};
+
+/*
+ * Bitfields for editing a user object
+*/
+enum RevoltUserEditObject {
+    STATUS = 0x01,
+    PROFILE = 0x02,
+    AVATAR = 0x04
+};
+
+/*
+ * Bitfields for inviting a public bot
+*/
+enum RevoltInviteTo {
+    SERVER = 0x01,
+    GROUP = 0x02
 };
 
 #endif

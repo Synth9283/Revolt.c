@@ -6,13 +6,13 @@
 #include "../../deps/json-utils/utils.h"
 
 int revoltLogout(struct RevoltClient* client) {
-    char* getURL = mprintf("https://api.revolt.chat/auth/logout");
+    char* deleteURL = mprintf("https://api.revolt.chat/session/logout");
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
 
-    struct SizedBuffer response = getRequest(getURL, "", 1, sessionHeader);
+    struct SizedBuffer response = deleteRequest(deleteURL, "", 1, sessionHeader);
 
     free(response.string);
-    free(getURL);
+    free(deleteURL);
     free(sessionHeader);
 
     return 0;
