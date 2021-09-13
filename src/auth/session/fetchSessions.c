@@ -7,7 +7,7 @@
 #include "../../deps/json-utils/utils.h"
 
 int revoltFetchSessions(struct RevoltClient* client, struct RevoltSession** sessions) {
-    char* getURL = mprintf("https://api.revolt.chat/auth/sessions");
+    char* getURL = mprintf("https://api.revolt.chat/session/all");
     char* sessionHeader = mprintf("x-session-token: %s", client->token);
 
     struct SizedBuffer response = getRequest(getURL, "", 1, sessionHeader);
