@@ -5,12 +5,6 @@
 #include "../../deps/revolt.h"
 #include "../../deps/json-utils/utils.h"
 
-enum RevoltUserEditObject {
-    STATUS = 0x01,
-    PROFILE = 0x02,
-    AVATAR = 0x04
-};
-
 int revoltEditUserStatus(struct RevoltClient* client, struct RevoltUserStatus* status) {
     char* patchJSON = mprintf("{\"status\": {\"text\": \"%s\", \"presence\": \"%s\"}}", status->text, status->presence);
     char* patchURL = mprintf("https://api.revolt.chat/users/@me");
