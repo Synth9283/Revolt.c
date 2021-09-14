@@ -67,6 +67,58 @@ struct RevoltNode {
 };
 
 /*
+ * Revolt file metadata
+*/
+struct RevoltFile {
+    char* type;
+};
+
+/*
+ * Revolt text metadata
+*/
+struct RevoltText {
+    char* type;
+};
+
+/*
+ * Revolt audio metadata
+*/
+struct RevoltAudio {
+    char* type;
+};
+
+/*
+ * Revolt image metadata
+*/
+struct RevoltImage {
+    char* type;
+    int width;
+    int height;
+};
+
+
+/*
+ * Revolt Video metadata
+*/
+struct RevoltVideo {
+    char* type;
+    int width;
+    int height;
+};
+
+/*
+ * Holds Revolt metadata objects
+*/
+struct RevoltMetadata {
+    char* type;
+    struct RevoltFile* file;
+    struct RevoltText* text;
+    struct RevoltAudio* audio;
+    struct RevoltImage* image;
+    struct RevoltVideo* video;
+};
+
+/*
  * A Revolt client that holds the token and userid of the user
  * that is signed in.
 */
@@ -158,6 +210,9 @@ struct RevoltSession {
     char* friendlyName;
 };
 
+/*
+ * Holds Revolt attachment data
+*/
 struct RevoltAttachment {
     char* id;
     char* tag;
@@ -169,10 +224,16 @@ struct RevoltAttachment {
     char* contentType;
 };
 
+/*
+ * Holds Revolt embed data
+*/
 struct RevoltEmbed {
     char* type;
 };
 
+/*
+ * Holds Revolt channel member data
+*/
 struct RevoltChannelMember {
     struct {
         char* server;
@@ -183,11 +244,17 @@ struct RevoltChannelMember {
     char** roles;
 };
 
+/*
+ * Holds Revolt message content data
+*/
 struct RevoltMessageContent {
     char* type;
     char* content;
 };
 
+/*
+ * Holds Revolt edited message data
+*/
 struct RevoltMessageEdited {
     char* date;
 };
@@ -333,6 +400,28 @@ struct RevoltBot {
     char* token;
     int _public;
     char* interactionsUrl;
+};
+
+/*
+ * Holds information about a public bot avatar
+*/
+struct RevoltPublicBotAvatar {
+    char* id;
+    char* tag;
+    int size;
+    char* filename;
+    struct RevoltMetadata* metadata;
+    char* contentType;
+};
+
+/*
+ * Holds public bot data
+*/
+struct RevoltPublicBot {
+    char* id;
+    char* username;
+    struct RevoltPublicBotAvatar* avatar;
+    char* description;
 };
 
 /*
