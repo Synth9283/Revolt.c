@@ -301,6 +301,32 @@ int revoltOnboardingStatus(struct RevoltClient* client, int* onboarding);
 int revoltCompleteOnboarding(struct RevoltClient* client, char* username);
 
 /*
+ * Deletes a invite by its ID
+ *
+ * @param client: The Revolt client
+ * @param invite: The invite code to delete
+ * @return: HTTP status code
+*/
+int revoltDeleteInvite(struct RevoltClient* client, const char* invite);
+
+/*
+ * Subscribes to a web push
+ *
+ * @param client: The Revolt client
+ * @param data: The data for subscribing
+ * @return: HTTP status code
+*/
+int revoltSubscribe(struct RevoltClient* client, struct RevoltSubscribeData* data);
+
+/*
+ * Unsubscribes from a web push
+ *
+ * @param client: The Revolt client
+ * @return: HTTP status code
+*/
+int revoltUnsubscribe(struct RevoltClient* client);
+
+/*
  * Changes the username of a revolt user
  *
  * @param client: The Revolt Client

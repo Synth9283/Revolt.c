@@ -466,6 +466,15 @@ struct RevoltInvitePublicBotData {
 };
 
 /*
+ * Holds the data for a web push subscription
+*/
+struct RevoltSubscribeData {
+    char* endpoint;
+    char* p256dh;
+    char* auth;
+};
+
+/*
  * Bitfields for editing a user object
 */
 enum RevoltUserEditObject {
