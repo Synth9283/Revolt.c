@@ -152,6 +152,16 @@ int revoltFetchBot(struct RevoltClient* client, struct RevoltOwnedBot* ownedBot,
 int revoltFetchOwnedBots(struct RevoltClient* client, struct RevoltOwnedBots* bots);
 
 /*
+ * Fetches a public Revolt bot
+ *
+ * @param client: The Revolt client
+ * @param publicBot: The public bot data buffer to write into
+ * @param bot: The targetted bot to fetch
+ * @return HTTP status code
+*/
+int revoltFetchPublicBot(struct RevoltClient* client, struct RevoltPublicBot* publicBot, const char* bot);
+
+/*
  * Invites a Revolt bot to a server or group
  *
  * @param client: The Revolt client

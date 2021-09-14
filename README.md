@@ -133,14 +133,14 @@ int main() {
         - [ ] [Create Role](https://developers.revolt.chat/api/#tag/Server-Permissions/paths/~1servers~1:server~1roles/post)
         - [ ] [Edit Role](https://developers.revolt.chat/api/#tag/Server-Permissions/paths/~1servers~1:server~1roles~1:role/patch)
         - [ ] [Delete Role](https://developers.revolt.chat/api/#tag/Server-Permissions/paths/~1servers~1:server~1roles~1:role/delete)
-- [ ] Bots
-    - [ ] [Bots](https://developers.revolt.chat/api/#tag/Bots)
+- [x] Bots
+    - [x] [Bots](https://developers.revolt.chat/api/#tag/Bots)
         - [x] [Create Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1create/post)
         - [x] [Fetch Owned Bots](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1@me/get)
         - [x] [Fetch Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot/get)
         - [x] [Edit Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot/patch)
         - [x] [Delete Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot/delete)
-        - [ ] [Fetch Public Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot~1invite/get)
+        - [x] [Fetch Public Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot~1invite/get)
         - [x] [Invite Public Bot](https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot~1invite/post)
 - [ ] Miscellaneous
     - [ ] [Invites](https://developers.revolt.chat/api/#tag/Invites)
